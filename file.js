@@ -1,6 +1,5 @@
 // fs(file system) -> module
 const fs = require('fs');
-const { log } = require('util');
 
 // NOTE -> Synchronous - return the data // Asychronous - doesn't return anything, but except callback
 
