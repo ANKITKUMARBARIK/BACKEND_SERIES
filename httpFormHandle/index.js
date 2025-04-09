@@ -26,6 +26,7 @@ const myServer = http.createServer((req, res) => {
                 name: formData.get("name"),
                 email: formData.get("email"),
                 message: formData.get("message"),
+                time: new Date().toISOString()
             }
             console.log("Feedback received:", feedback);
             fs.readFile('feedbacks.json', (err, data) => {
