@@ -62,7 +62,7 @@ Each folder contains:
 
 **Created by Chinu** ❤️
 
-- 🔗 GitHub: [github.com/yourusername](https://github.com/ANKITKUMARBARIK)
+- 🔗 GitHub: [github.com/ANKITKUMARBARIK](https://github.com/ANKITKUMARBARIK)
 
 ---
 
