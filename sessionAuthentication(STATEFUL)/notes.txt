@@ -100,7 +100,7 @@ Set-Cookie: token=; expires=Thu, 01 Jan 1970 00:00:00 UTC;
 
 [Server]
 - ✅ Verify credentials
-- 🔐 Generate JWT Token
+- 🔐 Generate JWT Token set secretKey🔐
 - 🍪 Set token in Cookie (httpOnly)
 → Send cookie back to [User]
 
@@ -111,11 +111,11 @@ Set-Cookie: token=; expires=Thu, 01 Jan 1970 00:00:00 UTC;
 
 [Server]
 - 🔍 Extract token from cookie
-- 🧠 Decode + verify JWT
+- 🧠 Decode + verify JWT and secretKey🔐
 - ✅ Identify user → Allow access
 
 🧠 Important:
-- Server JWT ko decode karta hai bas.
+- Server JWT ko decode karta hai bas aur JWT se secretKey🔐 ko verify krta h.
 
 - User ka data server me store nahi hota (stateless).
 
