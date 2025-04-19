@@ -4,7 +4,7 @@ const PORT = 8000
 
 // connection
 const { mongoConnect } = require("./connection.js")
-mongoConnect("mongodb://127.0.0.1:27017/bearer-auth-app")
+mongoConnect("mongodb://127.0.0.1:27017/jwt-auth-bearer-app")
     .then(() => console.log("MongoDB Connected..."))
     .catch((err) => console.log("Mongo Error ", err))
 
@@ -26,13 +26,13 @@ app.set("views", path.resolve('./views'))
 // authentication middleware
 const { restrictUserOnly } = require("./middlewares/auth.js")
 const urlRouter = require("./routes/url.js")
-app.use('/url',restrictUserOnly, urlRouter)
+app.use('/url', restrictUserOnly, urlRouter)
 
 
 // routes (staticRouter)
 const { checkAuth } = require("./middlewares/auth.js")
 const staticRouter = require("./routes/staticRouter.js")
-app.use('/',checkAuth, staticRouter)
+app.use('/', checkAuth, staticRouter)
 
 
 // routes (authentication users)

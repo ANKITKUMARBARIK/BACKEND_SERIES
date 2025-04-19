@@ -26,9 +26,8 @@ async function handleLogin(req, res) {
     const isValid = await bcrypt.compare(password, user.password)
     if (!isValid) return res.redirect('/login')
     const token = setUser(user)
-    res.cookie('uid', token)
-
-    return res.redirect('/')
+    // server client ko jwt token bhejega using json -> Authorization-Bearer way ...ab client ko apne browser pe ek custom headers banana padega jisme wo token store krega.. - header: {Authorization: Bearer <token>}
+    return res.json({ token })
 }
 
 module.exports = {
