@@ -1,0 +1,4 @@
+GET / /?token=secret123 at 11/4/2025, 11:52:21 am -> MIDDLEWARE 1
+GET / /?token=secret123 at 11/4/2025, 11:52:21 am -> MIDDLEWARE 2 ankitbarik.dev@gmail.com
+GET /about/ /about/?token=secret123 at 11/4/2025, 11:52:29 am -> MIDDLEWARE 1
+GET /about/ /about/?token=secret123 at 11/4/2025, 11:52:29 am -> MIDDLEWARE 2 ankitbarik.dev@gmail.com

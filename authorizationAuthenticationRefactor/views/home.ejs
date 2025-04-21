@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home - URL Generator</title>
+</head>
+
+<body>
+    <div>
+        <form action="/url/" method="POST">
+            <label>Enter Original URL</label>
+            <input type="text" name="url" placeholder="https://example.com">
+            <button type="submit">Generate</button>
+        </form>
+        <% if (locals.id) { %>
+            <p>
+                <a href="http://localhost:8000/url/<%= id %>" target="_blank">http://localhost:8000/url/<%= id %></a>
+            </p>
+            <% } %>
+    </div>
+    <div>
+        <% if (locals.allUrl) { %>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Sr. No</th>
+                        <th>ShortId</th>
+                        <th>redirectURL</th>
+                        <th>TotalClicks</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <% allUrl.forEach((url,index)=> { %>
+                        <tr>
+                            <td>
+                                <%= index+1 %>
+                            </td>
+                            <td>
+                                <%= url.shortId %>
+                            </td>
+                            <td>
+                                <%= url.redirectURL %>
+                            </td>
+                            <td>
+                                <%= url.visitHistory.length %>
+                            </td>
+                            <td>
+                                <%= url.createdBy %>
+                            </td>
+                        </tr>
+                        <% }) %>
+                </tbody>
+            </table>
+            <% } %>
+    </div>
+</body>
+
+</html>

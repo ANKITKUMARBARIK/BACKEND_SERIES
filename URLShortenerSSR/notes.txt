@@ -1,0 +1,23 @@
+WIERD WAY to write HTML in NODEJS OR BETTER WAY to write HTML in EJS file.
+
+
+app.get('/shorturls', async (req, res) => {
+    const allUrls = await URL.find({})
+    
+    // return res.end(`
+    //     <html>
+    //         <head></head>
+    //         <body>
+    //             <ol>
+    //                 ${allUrls.map((url) => `<li>${url.shortId} - ${url.redirectURL} - ${url.visitHistory.length}</li>`).join('')}
+    //             </ol>
+    //         </body>
+    //     </html>
+    // `)
+
+    return res.render("home", {   // "home" -> home.ejs
+        urls: allUrls,
+        name: "Ankit",
+    })
+    // {urls: allUrls}: This is an object that passes data to the view. The key urls will be available inside the home.ejs file, and its value will be the allUrls variable, which can contain an array or data of URLs.
+})

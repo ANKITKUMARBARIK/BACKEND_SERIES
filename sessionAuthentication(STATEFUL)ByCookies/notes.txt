@@ -1,0 +1,225 @@
+🍪 Cookie + JWT Flow – User vs Server (Instagram Example)
+
+
+✅ STEP 1: New User Instagram Pe Aata Hai
+👤 User:
+
+- Pehli baar Instagram website kholta hai.
+
+- Login ya Register page open karta hai.
+
+🖥️ Server:
+
+- Dekhta hai ki browser ke paas koi JWT wali cookie nahi hai.
+
+- Server bolta hai: “Tu naya hai, login ya register kar bhai!”
+
+✅ STEP 2: User Register Karta Hai
+👤 User:
+
+- Registration form fill karta hai: name, email, password.
+
+- "Submit" button pe click karta hai.
+
+🖥️ Server:
+
+- User ka data (e.g., userId, username, email) database mein save karta hai.
+
+- Server ek JWT token generate karta hai, jo user ki identity ko encode karega:
+const token = jwt.sign({ userId: '1234', username: 'chinu' }, secretKey, { expiresIn: '1h' });
+
+- Fir server is token ko cookie mein daal ke browser ko bhejta hai:
+Set-Cookie: token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiIxMjM0IiwidXNlcm5hbWUiOiJjaGluYXIiLCJpYXQiOjE2NTYwNTg5OTEsImV4cCI6MTY1NjA2MjU5MX0.UyHqASz9lXlm34DAqxlV0OFwwelxljptHZg7ChIIf-I; HttpOnly; Secure; SameSite=Strict
+
+- HttpOnly: Yeh token JavaScript se access nahi ho sakta, sirf HTTP request ke through bheja jayega.
+
+- Secure: Yeh cookie sirf HTTPS connection ke through bheji jayegi.
+
+- SameSite=Strict: Yeh cookie sirf apne domain ke context mein bheji jayegi.
+
+✅ STEP 3: Browser JWT Cookie Store Karta Hai
+👤 Browser:
+
+- Server se mila cookie store kar leta hai.
+
+- JWT token browser ke cookie storage mein safe ho jata hai.
+
+- Future requests ke saath, automatically yeh token cookie ke saath attach ho jayega.
+
+✅ STEP 4: User Website Pe Wapas Aata Hai (Ya Koi Kaam Karta Hai)
+👤 Browser:
+
+- Jab user website ko wapas open karta hai ya koi action leta hai (e.g., like button click, post view), tab browser apne saath cookie bhejta hai, jo token ke saath hoti hai:
+Cookie: token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiIxMjM0IiwidXNlcm5hbWUiOiJjaGluYXIiLCJpYXQiOjE2NTYwNTg5OTEsImV4cCI6MTY1NjA2MjU5MX0.UyHqASz9lXlm34DAqxlV0OFwwelxljptHZg7ChIIf-I
+
+🖥️ Server:
+
+- Server ko request milti hai jisme JWT token cookies ke through hota hai.
+
+- Server token ko verify karta hai:
+const token = req.cookies.token; // Cookie se token extract
+const decoded = jwt.verify(token, secretKey); // Token verify karta hai
+
+- Agar token valid hai aur expiry valid hai (token ka time expire nahi ho gaya), to server user ko authenticate kar leta hai.
+
+- Server user ko identify karke response bhejta hai: "Aaja bhai, tu login hai — kaam kar!"
+
+✅ STEP 5: User Logout Karta Hai
+👤 User:
+
+- "Logout" button pe click karta hai.
+
+🖥️ Server:
+
+- JWT token ko invalidate nahi kar sakta, kyunki JWT stateless hota hai. Server ko token ke expiry ko control nahi milta.
+
+- Par server cookie ko delete kar deta hai:
+Set-Cookie: token=; expires=Thu, 01 Jan 1970 00:00:00 UTC;
+
+- Isse cookie expire ho jati hai aur JWT token browser ke pass se delete ho jata hai.
+
+👤 Browser:
+
+- Cookie ko delete kar diya gaya, toh browser ke pass koi JWT token nahi hota hai.
+
+- Isse effectively user logout ho jata hai.
+
+
+
+
+
+
+
+👉🏻 JWT and Session ID Difference
+
+
+✅ JWT + Cookie (Stateless Auth)
+- 🔁 Flow: User ↔ Server
+
+[User] 🔐 Signup/Login form → sends credentials to → [Server]
+
+[Server]
+- ✅ Verify credentials
+- 🔐 Generate JWT Token set secretKey🔐
+- 🍪 Set token in Cookie (httpOnly)
+→ Send cookie back to [User]
+
+[User]
+- 💾 Browser stores the cookie (with JWT)
+
+- 🔐 Next request → browser automatically sends cookie → [Server]
+
+[Server]
+- 🔍 Extract token from cookie
+- 🧠 Decode + verify JWT and secretKey🔐
+- ✅ Identify user → Allow access
+
+🧠 Important:
+- Server JWT ko decode karta hai bas aur JWT se secretKey🔐 ko verify krta h.
+
+- User ka data server me store nahi hota (stateless).
+
+- Logout = cookie ko clear karna.
+
+
+🟩 Session ID + Cookie (Stateful Auth)
+- 🔁 Flow: User ↔ Server
+- SessionId Login pe hi banta h ..Jab user apna details dhalke login krta h, server check krega agar login details shi h toh server ek sessionId banaega aur sessionId and userdetails ko apne pass rakhega aur wo sessionid cookie ke sath lagake user browser pe bhi bhej dega ..
+
+-Alag alag user ka alag alag sessionid banta h
+
+- [User] 🔐 Login form → sends credentials to → [Server]
+Bhai sessionID normally login ke time banta hai, signup ke time nahi.
+
+[Server]
+- ✅ Verify credentials
+- 🆔 Generate Session ID (uuid)
+- 🗃️ Store user data in server memory/database against session ID
+- 🍪 Set session ID in Cookie
+→ Send cookie back to [User]
+
+[User]
+- 💾 Browser stores cookie with session ID
+
+- 🔐 Next request → sends cookie → [Server]
+
+[Server]
+- 🔍 Read session ID from cookie
+- 🗃️ Fetch user info from session store
+- ✅ Identify user → Allow access
+
+🧠 Important:
+- Server me user session store hota hai (stateful).
+
+- Server pe load zyada ho sakta hai if many users.
+
+- Logout = session destroy + cookie clear.
+
+
+
+
+
+
+
+
+🔑 Password Hashing and Verification Flow Using bcrypt
+
+
+✅ STEP 1: User Register Karta Hai (Password Hashing)
+- User apna password registration form mein fill karta hai.
+
+- Server password ko bcrypt ke through hash karta hai aur salt add karta hai.
+
+const bcrypt = require('bcrypt');
+const saltRounds = 10; // Salt ki strength
+const password = "userPassword123"; // User ka plain password
+// Password ko hash karte hain
+bcrypt.hash(password, saltRounds, function(err, hashedPassword) {
+    if (err) {
+        console.error("Error hashing password:", err);
+    } else {
+        // Hashed password ko database mein save karo
+        console.log("Hashed password saved in DB:", hashedPassword);
+    }
+});
+
+Output:
+$2b$10$KIX9pnlTZ.Vjs6H7y5Ybeu.yzYb9a9Ym6qAq1F9YOcZGlk9khDFSS
+
+- hashedPassword ko database mein save karte hain.
+
+✅ STEP 2: User Login (Password Verification)
+- User login form mein apna password enter karta hai.
+
+- Server user ke entered password ko dobara hash karta hai aur database mein stored hashed password ke saath compare karta hai.
+
+const enteredPassword = "userPassword123"; // User ka entered password
+const storedHashedPassword = "$2b$10$KIX9pnlTZ.Vjs6H7y5Ybeu.yzYb9a9Ym6qAq1F9YOcZGlk9khDFSS"; // Database se stored hashed password
+
+// Entered password ko stored hash se compare karte hain
+bcrypt.compare(enteredPassword, storedHashedPassword, function(err, result) {
+    if (err) {
+        console.error("Error comparing passwords:", err);
+    } else {
+        if (result) {
+            // Agar match hota hai, user ka password correct hai
+            console.log("Password is correct!");
+            // User ko successfully logged in declare karte hain
+        } else {
+            // Agar match nahi hota, user ka password incorrect hai
+            console.log("Invalid password");
+        }
+    }
+});
+
+- bcrypt.compare() method entered password ko hashed password ke saath compare karta hai.
+
+- Agar match hota hai, toh user successfully logged in ho jata hai.
+
+✅ STEP 3: User Logout
+- User logout karta hai.
+
+- Server JWT token ya session ko invalidate kar deta hai, aur cookie ko delete kar deta hai.
+// Cookie ko delete karne ke liye
+res.clearCookie('token');
+console.log("User logged out successfully.");

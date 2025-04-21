@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Create User</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #0f172a;
+            color: white;
+            height: 100vh;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .container {
+            display: flex;
+            flex-direction: row;
+            gap: 30px;
+            width: 100%;
+            max-width: 1200px;
+            height: 90vh;
+        }
+
+        .form-container {
+            background-color: #1e293b;
+            padding: 30px;
+            border-radius: 10px;
+            width: 40%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .form-container h2 {
+            text-align: center;
+            margin-bottom: 20px;
+            color: #38bdf8;
+        }
+
+        label {
+            margin-top: 15px;
+            font-weight: bold;
+            color: #cbd5e1;
+        }
+
+        input[type="text"],
+        input[type="email"] {
+            width: 100%;
+            padding: 10px;
+            margin-top: 5px;
+            border: none;
+            border-radius: 6px;
+            font-size: 16px;
+            background-color: #334155;
+            color: white;
+        }
+
+        .radio-group {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 10px;
+        }
+
+        .radio-group label {
+            font-weight: normal;
+            color: #cbd5e1;
+        }
+
+        button {
+            margin-top: 20px;
+            width: 100%;
+            padding: 12px;
+            background-color: #10b981;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #059669;
+        }
+
+        .table-section {
+            flex: 1;
+            background-color: #1e293b;
+            border-radius: 10px;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+        }
+
+        .table-section h2 {
+            text-align: center;
+            margin-bottom: 15px;
+            color: #38bdf8;
+        }
+
+        .table-wrapper {
+            overflow-y: auto;
+            flex: 1;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th,
+        td {
+            padding: 10px;
+            text-align: left;
+            border-bottom: 1px solid #334155;
+            color: #e2e8f0;
+        }
+
+        th {
+            background-color: #0f766e;
+            color: white;
+            position: sticky;
+            top: 0;
+        }
+
+        tr:hover {
+            background-color: #334155;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="form-container">
+            <h2>Create User</h2>
+            <form action="/user/" method="POST">
+                <label for="firstName">First Name</label>
+                <input type="text" name="firstName" id="firstName" required />
+
+                <label for="lastName">Last Name</label>
+                <input type="text" name="lastName" id="lastName" required />
+
+                <label for="email">Email</label>
+                <input type="email" name="email" id="email" required />
+
+                <label>Gender</label>
+                <div class="radio-group">
+                    <label><input type="radio" name="gender" value="Male" required /> Male</label>
+                    <label><input type="radio" name="gender" value="Female" /> Female</label>
+                    <label><input type="radio" name="gender" value="Other" /> Other</label>
+                </div>
+
+                <label for="jobTitle">Job Title</label>
+                <input type="text" name="jobTitle" id="jobTitle" required />
+
+                <button type="submit">Create User</button>
+            </form>
+        </div>
+
+        <div class="table-section">
+            <h2>All Users</h2>
+            <div class="table-wrapper">
+                <% if (locals.allUser) { %>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Sr. No</th>
+                                <th>First Name</th>
+                                <th>Last Name</th>
+                                <th>Email</th>
+                                <th>Gender</th>
+                                <th>Job Title</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <% allUser.forEach((user,index)=> { %>
+                                <tr>
+                                    <td>
+                                        <%= index + 1 %>
+                                    </td>
+                                    <td>
+                                        <%= user.firstName %>
+                                    </td>
+                                    <td>
+                                        <%= user.lastName %>
+                                    </td>
+                                    <td>
+                                        <%= user.email %>
+                                    </td>
+                                    <td>
+                                        <%= user.gender %>
+                                    </td>
+                                    <td>
+                                        <%= user.jobTitle %>
+                                    </td>
+                                </tr>
+                                <% }) %>
+                        </tbody>
+                    </table>
+                    <% } else { %>
+                        <p style="text-align:center; color: #cbd5e1;">No users available</p>
+                        <% } %>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

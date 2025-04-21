@@ -1,0 +1,16 @@
+Schema -> Define the structure
+    Make Model - by using Schema
+    Using Model we do CRUD operations
+
+
+A schema is like a blueprint or design that tells what fields and what type of data each document in a collection should have.
+ex:-
+    const userSchema = new mongoose.Schema({
+        name: String,
+        age: Number,
+        email: String,
+    });
+
+
+A model is created using a schema and is used to interact with the actual MongoDB collection.
+With a model, you can create, read, update, or delete documents.

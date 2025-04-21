@@ -1,0 +1,20 @@
+[
+    {
+        "name": "John Alison",
+        "email": "johnalison23@gmail.com",
+        "message": "Hey there",
+        "time": "2025-04-09T12:00:56.578Z"
+    },
+    {
+        "name": "Wick Sam",
+        "email": "wicksam45@gmail.com",
+        "message": "Hey buddy",
+        "time": "2025-04-09T12:01:39.225Z"
+    },
+    {
+        "name": "Rhyan Dahl",
+        "email": "rhyandahl67@gmail.com",
+        "message": "Be Kind",
+        "time": "2025-04-09T12:02:33.820Z"
+    }
+]
