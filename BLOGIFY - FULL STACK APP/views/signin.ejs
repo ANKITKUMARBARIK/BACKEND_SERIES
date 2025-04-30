@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <%- include('./partials/head') %>
+        <title>Sign In</title>
+        <style>
+            body {
+                background-color: #0d1117;
+                color: #c9d1d9;
+                font-family: 'Poppins', sans-serif;
+            }
+
+            .container {
+                max-width: 500px;
+                margin-top: 50px;
+            }
+
+            .form-label {
+                color: #c9d1d9;
+            }
+
+            .form-control {
+                background-color: #161b22;
+                border: 1px solid #21262d;
+                color: #c9d1d9;
+            }
+
+            .form-control:focus {
+                border-color: #238636;
+                box-shadow: 0 0 5px rgba(35, 134, 54, 0.4);
+            }
+
+            .btn-primary {
+                background-color: #238636;
+                border: none;
+                color: white;
+                font-weight: 600;
+                padding: 10px 20px;
+                border-radius: 6px;
+                transition: background-color 0.3s ease;
+            }
+
+            .btn-primary:hover {
+                background-color: #2ea043;
+            }
+
+            .form-text {
+                color: #8b949e;
+            }
+
+            .alert-danger {
+                background-color: #21262d;
+                color: #f8d7da;
+                border: 1px solid #f8d7da;
+            }
+        </style>
+</head>
+
+<body>
+    <%- include('./partials/nav') %>
+
+        <div class="container">
+            <form action="/user/signin" method="POST">
+                <div class="mb-3">
+                    <label for="email" class="form-label">Email address</label>
+                    <input type="email" name="email" required class="form-control" id="email"
+                        aria-describedby="emailHelp">
+                    <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
+                </div>
+                <div class="mb-3">
+                    <label for="password" class="form-label">Password</label>
+                    <input type="password" name="password" required class="form-control" id="password">
+                </div>
+                <button type="submit" class="btn btn-primary w-100">Sign In</button>
+            </form>
+        </div>
+
+        <%- include('./partials/scripts') %>
+</body>
+
+</html>

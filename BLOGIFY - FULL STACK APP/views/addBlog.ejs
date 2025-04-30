@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <%- include('./partials/head') %>
+        <title>Add New Blog</title>
+        <style>
+            body {
+                background-color: #0d1117;
+                /* Dark background for the page */
+                color: #c9d1d9;
+                /* Soft light grey text */
+                font-family: 'Poppins', sans-serif;
+            }
+
+            .container {
+                max-width: 800px;
+                margin-top: 50px;
+            }
+
+            .form-label {
+                color: #c9d1d9;
+            }
+
+            .form-control {
+                background-color: #161b22;
+                border: 1px solid #21262d;
+                color: #c9d1d9;
+            }
+
+            .form-control:focus {
+                border-color: #238636;
+                /* MongoDB Green */
+                box-shadow: 0 0 5px rgba(35, 134, 54, 0.4);
+            }
+
+            .btn-primary {
+                background-color: #238636;
+                /* MongoDB Green */
+                border: none;
+                color: white;
+                font-weight: 600;
+                padding: 10px 20px;
+                border-radius: 6px;
+                transition: background-color 0.3s ease;
+            }
+
+            .btn-primary:hover {
+                background-color: #2ea043;
+                /* Lighter on hover */
+            }
+
+            .form-text {
+                color: #8b949e;
+            }
+
+            textarea {
+                background-color: #161b22;
+                border: 1px solid #21262d;
+                color: #c9d1d9;
+                min-height: 150px;
+                padding: 10px;
+                font-family: 'Poppins', sans-serif;
+            }
+        </style>
+</head>
+
+<body>
+    <%- include('./partials/nav') %>
+
+        <div class="container mt-3">
+            <h2 class="text-center mb-4">Add New Blog</h2>
+            <form action="/blog/" method="POST" enctype="multipart/form-data">
+                <div class="mb-3">
+                    <label for="coverImageURL" class="form-label">Cover Image</label>
+                    <input type="file" name="coverImageURL" class="form-control" id="coverImageURL">
+                </div>
+                <div class="mb-3">
+                    <label for="title" class="form-label">Title</label>
+                    <input type="text" name="title" class="form-control" id="title" required>
+                </div>
+                <div class="mb-3">
+                    <label for="body" class="form-label">Body</label>
+                    <textarea name="body" id="body" class="form-control" required></textarea>
+                </div>
+                <div class="mb-3">
+                    <button type="submit" class="btn btn-primary w-100">Submit</button>
+                </div>
+            </form>
+        </div>
+
+        <%- include('./partials/scripts') %>
+</body>
+
+</html>

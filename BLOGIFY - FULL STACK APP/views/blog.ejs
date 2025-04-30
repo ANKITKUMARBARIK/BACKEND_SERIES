@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <%- include('./partials/head') %>
+        <title>Blog</title>
+        <style>
+            body {
+                background-color: #0d1117;
+                color: #c9d1d9;
+                font-family: 'Poppins', sans-serif;
+            }
+
+            .container {
+                max-width: 800px;
+                margin-top: 50px;
+            }
+
+            .form-control {
+                background-color: #161b22;
+                border: 1px solid #21262d;
+                color: #c9d1d9;
+            }
+
+            .form-control:focus {
+                border-color: #238636;
+                box-shadow: 0 0 5px rgba(35, 134, 54, 0.4);
+            }
+
+            .btn-primary {
+                background-color: #238636;
+                border: none;
+                color: white;
+                font-weight: 600;
+                padding: 10px 20px;
+                border-radius: 6px;
+                transition: background-color 0.3s ease;
+            }
+
+            .btn-primary:hover {
+                background-color: #2ea043;
+            }
+
+            pre {
+                background-color: #161b22;
+                border: 1px solid #21262d;
+                padding: 10px;
+                border-radius: 5px;
+            }
+
+            .comment-section {
+                margin-top: 30px;
+            }
+
+            .comment-header {
+                font-size: 1.25rem;
+                font-weight: 600;
+            }
+
+            .comment {
+                display: flex;
+                align-items: flex-start;
+                margin-bottom: 15px;
+            }
+
+            .comment img {
+                border-radius: 50%;
+                margin-right: 10px;
+            }
+
+            .comment-content {
+                background-color: #161b22;
+                padding: 10px;
+                border-radius: 5px;
+                flex-grow: 1;
+            }
+
+            .comment-content pre {
+                margin: 0;
+                padding: 0;
+                background-color: transparent;
+            }
+        </style>
+</head>
+
+<body>
+    <%- include('./partials/nav') %>
+
+        <% if (locals.allBlogs) { %>
+
+            <div class="container mt-4">
+                <h1>
+                    <%= allBlogs.title %>
+                </h1>
+                <img src="<%= allBlogs.coverImageURL %>" width="700px" alt="Cover Image" class="img-fluid mt-3">
+                <pre class="mt-3"><%= allBlogs.body %></pre>
+            </div>
+
+            <div class="container mt-4">
+                <div class="d-flex align-items-center">
+                    <img src="<%= allBlogs.createdBy.profileImageURL %>" alt="Profile Image" width="50px"
+                        class="rounded-circle">
+                    <p class="ms-3 mb-0">
+                        <%= allBlogs.createdBy.fullName %>
+                    </p>
+                </div>
+            </div>
+
+            <div class="container mt-3 comment-section">
+                <h1 class="comment-header">Comments (<%= allComments.length %>)</h1>
+
+                <% if (locals.user) { %>
+                    <form action="/blog/comment/<%= allBlogs._id %>" method="POST">
+                        <div class="mb-3">
+                            <input type="text" name="content" required class="form-control" id="text"
+                                placeholder="Enter your comment">
+                            <button type="submit" class="btn btn-sm btn-primary mt-2">Add</button>
+                        </div>
+                    </form>
+                    <% } %>
+
+                        <div class="mt-3">
+                            <% if (locals.allComments) { %>
+                                <% allComments.forEach(comment=> { %>
+                                    <div class="comment">
+                                        <img src="<%= comment.createdBy.profileImageURL %>" alt="Profile Image"
+                                            width="50px">
+                                        <div class="comment-content">
+                                            <p class="mb-1"><strong>
+                                                    <%= comment.createdBy.fullName %>:
+                                                </strong></p>
+                                            <pre><%= comment.content %></pre>
+                                        </div>
+                                    </div>
+                                    <% }) %>
+                                        <% } %>
+                        </div>
+            </div>
+
+            <% } %>
+
+                <%- include('./partials/scripts') %>
+</body>
+
+</html>

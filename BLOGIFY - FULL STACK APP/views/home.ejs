@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <%- include('./partials/head') %>
+        <title>Home</title>
+        <style>
+            /* MongoDB + Node.js vibe */
+            body {
+                background-color: #0d1117;
+                /* Almost black */
+                color: #c9d1d9;
+                /* Soft light grey */
+                font-family: 'Poppins', sans-serif;
+                min-height: 100vh;
+            }
+
+            .card {
+                background-color: #161b22;
+                /* Deep dark grey */
+                border: 1px solid #21262d;
+                /* Light border */
+                border-radius: 10px;
+                transition: transform 0.3s ease, box-shadow 0.3s ease;
+                overflow: hidden;
+            }
+
+            .card:hover {
+                transform: translateY(-5px);
+                box-shadow: 0 0 15px rgba(0, 255, 128, 0.2);
+                /* Soft MongoDB green glow */
+            }
+
+            .card-title {
+                color: #3fb950;
+                /* MongoDB Green */
+                font-weight: 600;
+                font-size: 1.2rem;
+            }
+
+            .btn-primary {
+                background-color: #238636;
+                /* Mongo Green */
+                border: none;
+                color: #ffffff;
+                font-weight: 600;
+                padding: 8px 16px;
+                border-radius: 6px;
+                transition: background-color 0.3s ease;
+            }
+
+            .btn-primary:hover {
+                background-color: #2ea043;
+                /* Lighter on hover */
+                color: #ffffff;
+            }
+
+            img.card-img-top {
+                height: 200px;
+                object-fit: cover;
+                border-bottom: 1px solid #21262d;
+            }
+        </style>
+</head>
+
+<body>
+    <%- include('./partials/nav') %>
+
+        <% if (locals.blogs) { %>
+            <div class="container mt-5 mb-5">
+                <div class="row g-4">
+                    <% blogs.forEach(blog=> { %>
+                        <div class="col-12 col-sm-6 col-md-4 col-lg-3 d-flex">
+                            <div class="card h-100 d-flex flex-column justify-content-between" style="width: 100%;">
+                                <img src="<%= blog.coverImageURL %>" class="card-img-top" alt="Cover Image">
+                                <div class="card-body d-flex flex-column justify-content-between">
+                                    <h5 class="card-title mb-3">
+                                        <%= blog.title %>
+                                    </h5>
+                                    <a href="/blog/<%= blog._id %>" class="btn btn-primary mt-auto">View</a>
+                                </div>
+                            </div>
+                        </div>
+                        <% }) %>
+                </div>
+            </div>
+            <% } %>
+
+                <%- include('./partials/scripts') %>
+</body>
+
+</html>
