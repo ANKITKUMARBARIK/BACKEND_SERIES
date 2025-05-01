@@ -9,6 +9,7 @@
 
 <body style="background: #222; color: orange;">
     <h1>Chatting</h1>
+    <h2 id="onlineCount"></h2>
 
     <input type="text" id="message" placeholder="Enter message">
     <button id="sendBtn">Send</button>
@@ -18,6 +19,16 @@
     <script src="/socket.io/socket.io.js"></script>
     <script>
         const socket = io()
+
+        // online feature..
+        const onlineCount = document.querySelector("#onlineCount")
+        socket.on("online-users", (count) => {
+            onlineCount.innerText = `Online(${count})`
+        })
+
+
+
+        // chatting feature..
         const sendBtn = document.querySelector("#sendBtn")
         const message = document.querySelector("#message")
         const allMessages = document.querySelector("#messages")
