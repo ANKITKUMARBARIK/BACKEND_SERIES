@@ -1,0 +1,35 @@
+🔧 Cluster Module Kya Hai?
+Node.js by default single-threaded hota hai, matlab ek time par ek hi kaam karega. Lekin tere system mein multiple CPU cores hote hain, to unka pura use karne ke liye cluster module ka use karte hain.
+
+Ye module same Node.js app ke multiple instances (workers) bana deta hai, har ek alag core pe run karta hai.
+
+
+
++------------------------+
+|    Master Process      |
+|     (PID: 12345)       |
++----------+-------------+
+           |
+           | forks workers
+           v
++-------------------+   +-------------------+   +-------------------+   +-------------------+
+| Worker Process 1  |   | Worker Process 2  |   | Worker Process 3  |   | Worker Process 4  |
+| (PID: 12346)      |   | (PID: 12347)      |   | (PID: 12348)      |   | (PID: 12349)      |
+| HTTP Server       |   | HTTP Server       |   | HTTP Server       |   | HTTP Server       |
++--------+----------+   +--------+----------+   +--------+----------+   +--------+----------+
+         |                       |                       |                       |
+         |                       |                       |                       |
+         v                       v                       v                       v
+   Handles Request 1      Handles Request 2       Handles Request 3       Handles Request 4
+
+
+
+📝 Diagram Samjhaav:
+Master process: Bas ek hota hai. Ye worker processes ko banata hai.
+
+Worker processes: Multiple hote hain (jitne CPU cores utne). Ye HTTP requests handle karte hain.
+
+Load balancing: OS ya Node.js runtime request ko kisi bhi free worker ko assign karta hai.
+
+Crash Recovery: Agar koi worker crash ho jaye to master dobara usse fork kar deta hai (high availability).
+
