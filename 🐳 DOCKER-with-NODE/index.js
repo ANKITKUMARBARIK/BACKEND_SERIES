@@ -32,3 +32,7 @@ app.listen(PORT, () => console.log(`Server started at PORT:${PORT}`));
 // now pull the image -> docker pull ankitkumarbarik/docker-webapp-demo:01
 // then test/run container -> docker run -d --name "demoapp" --rm -p 8000:8000 ankitkumarbarik/docker-webapp-demo:01
 // for stop/remove container -> docker stop demoapp
+
+// Run existing Container ------------>
+// docker start <container_id_or_name>
+// docker exec -it <container_id_or_name> bash  OR  docker exec -it <container_id_or_name> sh
