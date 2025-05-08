@@ -1,0 +1,153 @@
+Install & Setup NginX in Ubuntu
+
+
+Open Terminal----------->
+Pull ubuntu :-  docker pull ubuntu
+uname
+uname -a
+
+Now, create/run container:-  docker run -it -p 8000:80 ubuntu
+NOTES:- By default nginx run on PORT 80. In my case, localhost:8000 bcoz kyu ki mene PORT mapping kia hai 80 ko 8000 mein that's why -p 8000:80
+
+first update all packages:-  apt-get update
+Now, install nginx:-  apt-get install nginx
+nginx -v
+
+Now run:-  nginx
+check browser:- localhost:8000
+
+in terminal:------->
+ls etc/nginx/
+ls
+cd etc
+ls
+cd nginx
+ls
+
+Size of file:-  ls -lh
+
+NOTES:-  nginx -conf <- ye file mein nginx server work krta h
+
+ab hum cd nginx ke andar vim install krenge
+terminal based editor:->  apt-get install vim
+
+now open vim editor-> vim nginx.conf
+
+exit vim editor:->  :qa
+
+backup of nginx.conf file:->  mv nginx.conf nginx-backup.conf
+ls
+
+new file create:-> touch nginx.conf
+ls
+
+now open vim editor-> vim nginx.conf
+
+exit vim editor:->  :qa
+
+now reload nginx:-> nginx -s reload
+
+now open vim editor-> vim nginx.conf
+
+now click key for INSERT mode: i
+
+now write in vim editor:------------------>
+
+events {
+
+}
+http {
+    server {
+        listen  80;
+        server_name _;
+        location /{
+            return 200 "Hello from Nginx Conf File";
+        }
+    }
+}
+
+now click:- Ctrl + C
+now write:->  :wq + Enter
+
+now reload nginx:->  nginx -s reload
+
+Now Open Browser:->  localhost:8000
+
+
+
+
+Now Let's create Static File and Serve:---------------------------->
+in nginx folder(cd nginx) create folder:->  mkdir website
+ls
+
+cd website
+ls
+now create file in website folder:->  touch index.html
+now create file in website folder:->  touch style.css
+NOTES:- By default, Nginx(webserver) ek folder se index.html file serve krta h.
+
+ab vim editor ke through index.html mein code likhenge:->  vim index.html
+
+now go INSERT MODE:->  i
+
+<html>
+    <head>
+        <title>Admin Dev</title>
+        <link rel="stylesheet" href="style.css">
+    </head>
+        <body>
+            <h1>Hello From Nginx</h1>
+            <p>This is a sample Nginx Webpage</p>
+        </body>
+</html>
+
+Ctrl + C
+:wq + Enter
+
+ls
+ab vim editor ke through style.css mein code likhenge:->  vim style.css
+
+now go INSERT MODE:->  i
+
+body{
+    background: #222;
+    color: whitesmoke;
+}
+
+Ctrl + C
+:wq + Enter
+
+
+ls
+Check contents:-> cat index.html
+Check contents:-> cat style.css
+
+cd ..
+Now, open nginx.conf file:->  vim nginx.conf
+
+open INSERT MODE:->  i
+
+events {
+
+}
+http {
+    include /etc/nginx/mime.types;
+    server {
+        listen  80;
+        server_name _;
+        root /etc/nginx/website;
+    }
+}
+
+Ctrl + C
+:wq + Enter
+
+Now reload nginx:->  nginx -s reload
+
+Now Open Browser:-> localhost:8000
+
+🔱 We can check/test configuration:-> nginx -t
+
+
+
+Refer about Nginx:- https://docs.nginx.com/nginx/admin-guide/web-server/serving-static-content/
