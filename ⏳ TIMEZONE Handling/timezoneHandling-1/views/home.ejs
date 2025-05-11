@@ -1,0 +1,41 @@
+<!-- views/index.ejs -->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <title>Task-Timezone</title>
+</head>
+
+<body style="background: #111; color: #eee;">
+    <h1>Create Task</h1>
+    <form action="/task/" method="POST">
+        <input type="text" name="title" placeholder="Enter task title" required />
+        <button type="submit">Add</button>
+    </form>
+
+    <br />
+
+    <form method="GET" action="/">
+        <label>Select Timezone:</label>
+        <select name="tz">
+            <option value="Asia/Kolkata" <%=timezone==="Asia/Kolkata" ? "selected" : "" %>>India (Kolkata)</option>
+            <option value="Europe/Moscow" <%=timezone==="Europe/Moscow" ? "selected" : "" %>>Russia (Moscow)</option>
+            <option value="America/New_York" <%=timezone==="America/New_York" ? "selected" : "" %>>USA (New York)
+            </option>
+            <option value="UTC" <%=timezone==="UTC" ? "selected" : "" %>>UTC</option>
+        </select>
+        <button type="submit">View</button>
+    </form>
+
+    <h2>All Tasks</h2>
+    <ul>
+        <% allTask.forEach((task, index)=> { %>
+            <li>
+                <%= index + 1 %>. <%= task.title %> - Created At: <%= task.userTime %>
+            </li>
+            <% }) %>
+    </ul>
+</body>
+
+</html>

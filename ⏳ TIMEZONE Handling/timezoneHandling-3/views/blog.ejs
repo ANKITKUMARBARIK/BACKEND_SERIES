@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <%- include("./partials/head.ejs") %>
+        <title>Blog</title>
+    </head>
+    <body>
+        <%- include("./partials/nav.ejs") %>
+        <div>
+            <% if (locals.blog) { %>
+            <div class="container mt-4">
+                <h1><%= blog.title %></h1>
+                <img
+                    src="<%= blog.coverImageURL %>"
+                    alt="Cover Image"
+                    width="700px"
+                />
+                <pre><%= blog.body %></pre>
+                <img
+                    src="<%= blog.createdBy.profileImageURL %>"
+                    alt="Profile Image"
+                    width="70px"
+                />
+                <%= blog.createdBy.fullName %>
+            </div>
+
+            <div class="container mt-3">
+                <% if (locals.user) { %>
+                <h1>Comments(<%= allComment.length %>)</h1>
+                <form action="/blog/comment/<%= blog._id %>" method="POST">
+                    <div class="mb-3">
+                        <input
+                            name="content"
+                            type="text"
+                            class="form-control"
+                            id="content"
+                            required
+                        />
+                        <button type="submit" class="btn btn-primary">
+                            Add
+                        </button>
+                    </div>
+                </form>
+                <% } %>
+
+                <div class="container mt-3">
+                    <% if (locals.allComment) { %>
+                    <div>
+                        <% allComment.forEach(comment => { %>
+                        <div class="container mt-3">
+                            <img
+                                src="<%= comment.createdBy.profileImageURL %>"
+                                alt="Proile Image"
+                                width="50px"
+                            />
+                            <%= comment.createdBy.fullName %>
+                            <p><%= comment.content %></p>
+                        </div>
+                        <% }) %>
+                    </div>
+                    <% } %>
+                </div>
+            </div>
+            <% } %>
+        </div>
+        <%- include("./partials/script.ejs") %>
+    </body>
+</html>

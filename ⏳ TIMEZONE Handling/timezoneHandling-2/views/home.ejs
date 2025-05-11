@@ -1,0 +1,39 @@
+<!-- views/index.ejs -->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <title>Task-Timezone</title>
+</head>
+
+<body style="background: #111; color: #eee;">
+    <h1>Create Task</h1>
+    <form action="/task/" method="POST">
+        <input type="text" name="title" placeholder="Enter task title" required />
+        <button type="submit">Add</button>
+    </form>
+
+    <br />
+
+
+    <h2>All Tasks</h2>
+    <ul>
+        <% allTask.forEach((task, index)=> { %>
+            <li>
+                <%= index + 1 %>. <%= task.title %> - Created At: <%= task.userTime %>
+            </li>
+            <% }) %>
+    </ul>
+
+    <script>
+        const timezone = Intl.DateTimeFormat().resolvedOptions().timeZone;
+        const currentUrl = new URL(window.location.href);
+        if (!currentUrl.searchParams.get("tz")) {
+            currentUrl.searchParams.set("tz", timezone);
+            window.location.href = currentUrl.toString();
+        }
+    </script>
+</body>
+
+</html>
