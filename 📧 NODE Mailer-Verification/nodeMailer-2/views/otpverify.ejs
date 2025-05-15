@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Verify OTP - Blogify</title>
+    <%- include("./partials/head.ejs") %>
+        <style>
+            body {
+                background-color: #f8f9fa;
+            }
+
+            .card {
+                max-width: 500px;
+                margin: 50px auto;
+                box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            }
+
+            .otp-input {
+                letter-spacing: 8px;
+                font-size: 1.5rem;
+                text-align: center;
+            }
+        </style>
+</head>
+
+<body>
+    <%- include("./partials/nav.ejs") %>
+
+        <div class="container">
+            <div class="card p-4">
+                <h3 class="text-center mb-3">OTP Verification</h3>
+                <p class="text-center">
+                    We have sent an OTP to your email: <% if (locals.email) { %>
+                        <strong>
+                            <%= email %>
+                        </strong>
+                        <% } %>
+                </p>
+                <form action="/user/verify-otp" method="post">
+                    <div class="mb-3">
+                        <label for="otp" class="form-label">Enter OTP</label>
+                        <input type="text" class="form-control otp-input" id="otp" name="otpVerify" maxlength="6"
+                            placeholder="Enter 6-digit OTP" required />
+                    </div>
+                    <div>
+                        <% if (locals.otpverifyError) { %>
+                            <div class="alert alert-danger" role="alert">
+                                <%= otpverifyError %>
+                            </div>
+                            <% } %>
+                    </div>
+                    <div class="d-grid">
+                        <button type="submit" class="btn btn-primary">
+                            Verify
+                        </button>
+                    </div>
+                </form>
+                <p class="text-center mt-3 text-muted">© 2025 Blogify</p>
+            </div>
+        </div>
+
+        <%- include("./partials/script.ejs") %>
+</body>
+
+</html>

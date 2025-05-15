@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <title>OTP Verification | Blogify</title>
+    <style>
+        body {
+            background-color: #0d0d0d;
+            color: #f2f2f2;
+            font-family: 'Segoe UI', sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            max-width: 500px;
+            margin: auto;
+            padding: 40px 20px;
+            background-color: #1a1a1a;
+            border-radius: 8px;
+            text-align: center;
+            box-shadow: 0 0 10px rgba(255, 140, 0, 0.2);
+        }
+
+        .logo {
+            font-size: 32px;
+            font-weight: bold;
+            color: #ff6a00;
+            margin-bottom: 20px;
+        }
+
+        .heading {
+            font-size: 22px;
+            color: #ffffff;
+        }
+
+        .otp-box {
+            background-color: #262626;
+            padding: 16px 24px;
+            border-radius: 10px;
+            margin: 25px 0;
+            font-size: 28px;
+            font-weight: bold;
+            color: #ff6a00;
+            letter-spacing: 6px;
+            display: inline-block;
+        }
+
+        .text {
+            color: #cccccc;
+            font-size: 15px;
+        }
+
+        .footer {
+            margin-top: 30px;
+            color: #888888;
+            font-size: 14px;
+        }
+
+        a {
+            color: #ff6a00;
+            text-decoration: none;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="logo">Blogify</div>
+        <div class="heading">OTP Verification</div>
+        <p class="text">Hi {{username}},</p>
+        <p class="text">Please use the OTP below to verify your email address:</p>
+
+        <div class="otp-box">{{otp}}</div>
+
+        <p class="text">This OTP is valid for <strong>5 minutes</strong>. Please do not share it with anyone.</p>
+
+        <div class="footer">
+            — Team Blogify
+            <br />
+            <a href="http://localhost:8000">Visit Blogify</a>
+        </div>
+    </div>
+</body>
+
+</html>

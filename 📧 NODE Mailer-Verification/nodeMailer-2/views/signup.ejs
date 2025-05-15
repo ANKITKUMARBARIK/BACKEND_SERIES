@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <%- include("./partials/head.ejs") %>
+        <title>Sign Up</title>
+</head>
+
+<body>
+    <%- include("./partials/nav.ejs") %>
+
+        <div class="container mt-4">
+            <form action="/user/signup" method="post">
+                <div class="mb-3">
+                    <label for="fullName" class="form-label">Full Name</label>
+                    <input name="fullName" type="text" class="form-control" id="fullName" required>
+                </div>
+                <div class="mb-3">
+                    <label for="email" class="form-label">Email</label>
+                    <input name="email" type="email" class="form-control" id="email" aria-describedby="emailHelp"
+                        required>
+                    <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
+                </div>
+                <div class="mb-3">
+                    <label for="password" class="form-label">Password</label>
+                    <input name="password" type="password" class="form-control" id="password" required>
+                </div>
+                <div class="mb-3">
+                    <select name="timezone" required>
+                        <option value="">-- Select Timezone --</option>
+                        <option value="Asia/Kolkata">Asia/Kolkata (India)</option>
+                        <option value="Asia/Dubai">Asia/Dubai</option>
+                        <option value="Asia/Tokyo">Asia/Tokyo</option>
+                        <option value="Europe/London">Europe/London</option>
+                        <option value="Europe/Berlin">Europe/Berlin</option>
+                        <option value="America/New_York">America/New_York</option>
+                        <option value="America/Los_Angeles">America/Los_Angeles</option>
+                        <option value="Australia/Sydney">Australia/Sydney</option>
+                    </select>
+                </div>
+                <button type="submit" class="btn btn-primary">Sign Up</button>
+            </form>
+        </div>
+
+        <%- include("./partials/script.ejs") %>
+</body>
+
+</html>
