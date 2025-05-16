@@ -1,0 +1,17 @@
+{
+  "name": "seeder",
+  "version": "1.0.0",
+  "description": "",
+  "license": "ISC",
+  "author": "",
+  "type": "module",
+  "main": "connection.js",
+  "scripts": {
+    "seed:import": "node seeder.js",
+    "seed:destroy": "node seeder.js -d"
+  },
+  "dependencies": {
+    "dotenv": "^16.5.0",
+    "mongoose": "^8.14.3"
+  }
+}
